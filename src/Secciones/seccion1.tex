@@ -1,0 +1,35 @@
+\subsection{Circuito de la figura 1}
+El primer ejercicio se centra en el circuito de la figura 1. Se realiza el cálculo de los polos a partir de la función de transferencia del lazo abierto y se contrasta esta ubicación con los resultados obtenidos en simulación.
+
+\subsubsection{Cálculo teórico de los polos}
+A partir del modelo del circuito se obtiene la expresión característica. 
+Función transferencia del lazo abierto:
+\begin{equation}
+    H_{(s)} = 20\frac{\mu A}{V} \cdot \frac{R_1}{1 + sC_1R_1} \cdot 10 \frac{\mu A}{V} \cdot \frac{R_2}{1 + sC_2R_2}
+\end{equation}
+Ubicación de los polos:
+\begin{equation}
+    s_1 = -\frac{1}{C_1R_1} \Rightarrow f_1 = 63.661\,\text{kHz}, \quad s_2 = -\frac{1}{C_2R_2} \Rightarrow f_2 = 1.591\,\text{MHz}
+\end{equation}
+
+\subsubsection{Contraste con simulación}
+La comparación entre los valores teóricos y los extraídos de la respuesta en frecuencia permite verificar la validez del modelo y detectar posibles discrepancias debidas a la modelización del op-amp.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{example-image}
+    \caption{Respuesta en frecuencia del circuito de la figura 1 (placeholder: example-image.png).}
+    \label{fig:sim1}
+\end{figure}
+
+\vspace{2em}
+
+\subsubsection{Resultados}
+\noindent\textbf{Polos teóricos:}
+\vspace{3em}
+
+\noindent\textbf{Polos simulados:}
+\vspace{3em}
+
+\noindent\textbf{Comentarios sobre la comparación:}
+\vspace{3em}

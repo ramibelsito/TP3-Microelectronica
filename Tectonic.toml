@@ -1,0 +1,7 @@
+[doc]
+name = "Informe"
+bundle = "https://data1.fullyjustified.net/tlextras-2025.0r0.tar"
+
+[[output]]
+name = "default"
+type = "pdf"

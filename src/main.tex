@@ -1,0 +1,69 @@
+\documentclass[11pt]{article}
+\input{Preambulo/paquetes}
+
+%---------------- INICIO DEL DOCUMENTO ----------------%
+\begin{document}
+\input{Preambulo/Variables}
+%-------------------- PORTADA --------------------%
+\input{Preambulo/portada}
+\newpage
+
+%-------------------- INDICES --------------------%
+\newpage
+\pagestyle{empty}
+\renewcommand{\contentsname}{{\huge Índice}}
+\tableofcontents
+
+%---------------- DESARROLLO ----------------%
+\lhead{\the\materia}
+\chead{\includegraphics[scale=0.02]{Imagenes/LOGO ITBA.png}}
+\rhead{\the\grupo}
+
+%---------------- Info de Pagina ----------------%
+\newpage
+\pagestyle{fancy} %activa encabezado y pie de pagina
+
+\setcounter{page}{1} %empezar numeración desde está pagina
+\setcounter{equation}{0} %empezar numeración desde 1 para ecuaciones
+\setcounter{figure}{0} %empezar numeración desde 1 para figuras
+\setcounter{table}{0} %empezar numeración desde 1 para tablas
+
+%\label{sec: label de la seccion} %los labels tambien funcionan con secciones
+
+%---------------- Introducción ---------------%
+\section{Introducción}
+\input{Secciones/introducción.tex}
+
+%---------------- 1ra Seccion ----------------%
+\section{Ejercicio 1}
+\label{sec:ejercicio1}
+\input{Secciones/seccion1}
+
+%---------------- 2da Seccion ----------------%
+\section{Ejercicio 2}
+\label{sec:ejercicio2}
+\input{Secciones/seccion2}
+
+%---------------- 3ra Seccion ----------------%
+\section{Ejercicio 3}
+\label{sec:ejercicio3}
+\input{Secciones/seccion3}
+
+%----------------- Conclusión ----------------%
+\section{Conclusión}
+\input{Secciones/conclusion.tex}
+
+%---------------- Anexo ----------------%
+%\newpage
+%\section{Anexo}
+%\input{Secciones/anexo}
+
+%---------------- Bibliografía ----------------%
+%\printbibliography
+
+%---------------- Componentes ----------------%
+\newpage
+\section{Templates}
+\input{Templates/Componentes}
+
+\end{document}

@@ -1,0 +1,21 @@
+LTspice 26.0.1 for Windows
+Circuit: Z:\home\rami\ITBA\Microelectronica\TP3-Microelectronica\3.net
+Start Time: Wed May 27 19:56:27 2026
+Options:logopinfo
+solver = Normal
+Maximum thread count: 4
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration failed to find operating point.
+Starting Gmin stepping
+Gmin stepping succeeded in finding the operating point.
+
+Total elapsed time: 0.188 seconds.
+
+Files loaded:
+Z:\home\rami\ITBA\Microelectronica\TP3-Microelectronica\3.net
+C:\users\rami\AppData\Local\LTspice\lib\cmp\standard.mos
+C:\users\rami\AppData\Local\LTspice\lib\sub\models.txt
+C:\users\rami\AppData\Local\LTspice\lib\sub\TCLib\bypass.lib
+

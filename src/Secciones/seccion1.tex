@@ -12,24 +12,35 @@ Ubicación de los polos:
     s_1 = -\frac{1}{C_1R_1} \Rightarrow f_1 = 63.661\,\text{kHz}, \quad s_2 = -\frac{1}{C_2R_2} \Rightarrow f_2 = 1.591\,\text{MHz}
 \end{equation}
 
-\subsubsection{Contraste con simulación}
-La comparación entre los valores teóricos y los extraídos de la respuesta en frecuencia permite verificar la validez del modelo y detectar posibles discrepancias debidas a la modelización del op-amp.
+\subsubsection{Gráficos de la simulación}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{example-image}
-    \caption{Respuesta en frecuencia del circuito de la figura 1 (placeholder: example-image.png).}
-    \label{fig:sim1}
+    \subfigure[Va/Vi]{
+    \includegraphics[width=0.3\textwidth]{Imagenes/1aVaVi.png}
+    }
+    \subfigure[Vo/Va]{
+    \includegraphics[width = 0.3\textwidth]{Imagenes/1aVoVa.png}
+    }
+    \caption{Primer y segundo polo sin compensación.}
+    \label{fig:PolosSinCompensacion1}
 \end{figure}
 
 \vspace{2em}
 
 \subsubsection{Resultados}
-\noindent\textbf{Polos teóricos:}
+\noindent\textbf{Primer Polo:}
+\begin{itemize}
+    \item $f_{1,\mathrm{teorico}} = 63{,}661\,\mathrm{kHz}$
+    \item $f_{1,\mathrm{simulado}} = 62{,}825\,\mathrm{kHz}$
+\end{itemize}
 \vspace{3em}
-
-\noindent\textbf{Polos simulados:}
+\noindent\textbf{Segundo Polo:}
+\begin{itemize}
+    \item $f_{2,\mathrm{teorico}} = 1{,}591\,\mathrm{MHz}$
+    \item $f_{2,\mathrm{simulado}} = 1{,}579\,\mathrm{MHz}$
+\end{itemize}
 \vspace{3em}
 
 \noindent\textbf{Comentarios sobre la comparación:}
-\vspace{3em}
+Se puede apreciar que los resultados de la simulación fueron muy cercanos a los obtenidos en la simulación.

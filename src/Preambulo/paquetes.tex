@@ -1,5 +1,5 @@
 %--------------------BLOQUE DE FORMATO--------------------%
-\usepackage[a4paper,includehead,includefoot, left=2cm,top=1.2cm,right=2cm,bottom=1.5cm,headheight=25pt]{geometry} %margenes.
+\usepackage[a4paper,includehead,includefoot, left=2cm,top=1.2cm,right=2cm,bottom=1.5cm,headheight=28pt]{geometry} %margenes.
 %--------------------FIN DE BLOQUE DE FORMATO--------------------%
 
 %--------------------CONFIGURACION DE IDIOMA--------------------%
@@ -14,7 +14,7 @@
 \usepackage[center]{caption} %permite modificar el formato de los caption para tablas/figuras
 \usepackage[colorlinks=false,linkcolor=black]{hyperref} %pone vinculos en el indice y en las referencias
 \usepackage{adjustbox}
-\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}  %para ecuaciones
+\usepackage{amsmath,amsfonts,amssymb,amscd}  %para ecuaciones
 \usepackage{array} %permite escribir en columnas sin ser una tabla, por ejemplo, matrices
 \usepackage{bm} %permite usar simbolos matematicos en negrita
 \usepackage{bookmark}
@@ -34,7 +34,6 @@
 \usepackage{lipsum} %introduce bloques de texto random, usado para tests
 \usepackage{listings} %para ingresar codigos de MATLAB, Python, Fortran, etc
 \usepackage{mathrsfs} %letras mayúsculas especiales, cursiva, gotica, etc
-\usepackage{microtype} %subliminal refinements towards typographical perfection
 \usepackage{multicol}
 \usepackage{multirow} %filas múltiples en tablas
 \usepackage{nicefrac} %Permite escribir fracciones en el medio del texto de una forma elegante \nicefrac{a}{b}
@@ -45,20 +44,20 @@
 \usepackage{subfigure}
 \usepackage{tabularx}
 \usepackage{tikz}
-\usepackage{titlesec} %modifición de secciones
 \usepackage{wrapfig}
 \usepackage{xcolor} %permite escribir texto en color
 
 %-------------------- Bibliografía --------------------%
-\usepackage[backend=bibtex,style=ieee]{biblatex} %agrega bibliografía al documento
+\usepackage[backend=biber,style=ieee]{biblatex} %agrega bibliografía al documento
 \addbibresource{Preambulo/Bibliografia.bib}
 
 %--------------------Titulos y enumeración de secciones--------------------%
 %titulos de secciones y subsecciones.
-\titleformat{\section}[hang]{\normalfont\bfseries}{\thesection}{5pt.}{} %modificación secciones.
-\titleformat{\subsection}[hang]{\normalfont\bfseries\raggedright}{\thesubsection}{5pt}{} %modificación subsecciones.
-\titleformat{\subsubsection}[hang]{\normalfont\itshape}{\thesubsubsection}{5pt}{} %modificación subsecciones.
-%\titleformat{\subsubsection}[hang]{\itshape}{Section \thesubsubsection}{}{\hspace{1cm} $\bullet$ \hspace{0.1cm}}[] %modificación subsecciones.
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}{-3.5ex\@plus-1ex\@minus-.2ex}{2.3ex\@plus.2ex}{\normalfont\Large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}{-3.25ex\@plus-1ex\@minus-.2ex}{1.5ex\@plus.2ex}{\normalfont\large\bfseries\raggedright}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}{-3.25ex\@plus-1ex\@minus-.2ex}{1.5ex\@plus.2ex}{\normalfont\normalsize}}
+\makeatother
 
 %enumeración de secciones y subsecciones.
 \renewcommand{\labelenumi}{\arabic{section}.\arabic{enumi}}
@@ -68,7 +67,6 @@
 
 \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}  %definición enumeración de figuras.
 
-\captionsetup[subfigure]{labelformat=parens,labelfont=normalfont,textfont=normalfont}
 \renewcommand{\thesubfigure}{(\alph{subfigure})} %modificación enumeración de subfiguras.
 
 \renewcommand{\thetable}{\arabic{section}.\arabic{table}} %definición enumeración de tablas.
@@ -102,6 +100,8 @@
     showtabs=false,                  
     tabsize=2
 }
+
+\newcommand{\blank}{\mathord{\rule{2.5em}{0.4pt}}}
 
 \lstset{style=mystyle}
 %--------------------FIN CONFIGURACION LISTING--------------------%

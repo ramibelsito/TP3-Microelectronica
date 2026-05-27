@@ -2,10 +2,10 @@
 \subsection{Tablas}
 \begin{table}[H]
     \centering
-    \begin{tabular}{l|c|c} \hline
-     Columna 0 & Columna 1 & Columna 2  \\ \hline
+    \begin{tabular}{lcc} \toprule
+     Columna 0 & Columna 1 & Columna 2  \\ \midrule
     0 & 1 & 2  \\ 
-    0 & 1 & 2 \\ \hline
+    0 & 1 & 2 \\ \bottomrule
     \end{tabular}
     \caption{Pie de tabla}
     \label{tab:tabla simple}
@@ -107,7 +107,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tristique aliquam
 
 
 % Ecuaciones sin número
-$$H(s)= sRC$$
+\[H(s)= sRC\]
 
 
 
@@ -115,7 +115,7 @@ $$H(s)= sRC$$
 % ---------------- Citas y Links -----------------
 \subsection{Citas y Links}
 
-Dirac dijo esto. \cite{dirac}
+Dirac dijo esto~\cite{dirac}
 
 \href{http://www.overleaf.com}{Esto tiene un hipervínculo}
 
@@ -128,6 +128,5 @@ Dirac dijo esto. \cite{dirac}
 ...
 print('Hello World!)
 \end{lstlisting}
-
 
 

@@ -5,6 +5,8 @@
 \begin{document}
 \input{Preambulo/Variables}
 %-------------------- PORTADA --------------------%
+\hypersetup{pageanchor=false}
+\pagenumbering{gobble}
 \input{Preambulo/portada}
 \newpage
 
@@ -23,6 +25,8 @@
 \newpage
 \pagestyle{fancy} %activa encabezado y pie de pagina
 
+\hypersetup{pageanchor=true}
+\pagenumbering{arabic}
 \setcounter{page}{1} %empezar numeración desde está pagina
 \setcounter{equation}{0} %empezar numeración desde 1 para ecuaciones
 \setcounter{figure}{0} %empezar numeración desde 1 para figuras
@@ -59,11 +63,11 @@
 %\input{Secciones/anexo}
 
 %---------------- Bibliografía ----------------%
-%\printbibliography
+%\printbibliography{}
 
 %---------------- Componentes ----------------%
-\newpage
-\section{Templates}
-\input{Templates/Componentes}
+%\newpage
+%\section{Templates}
+%\input{Templates/Componentes}
 
 \end{document}

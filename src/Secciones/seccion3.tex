@@ -1,44 +1,592 @@
 \subsection{Circuito buffer de la figura 2}
 El tercer ejercicio evalúa el amplificador operacional utilizado como buffer de tensión, y su ajuste para lograr un margen de fase de $60^\circ$.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Imagenes/Esquema3.png}
+    \caption{Circuito 3 con valores de polarizaci\'on}
+    \label{fig:esquema3}
+\end{figure}
+
 \subsubsection{Respuesta al escalón}
-Se simula la respuesta temporal del buffer ante una señal escalón y se analizan los parámetros de overshoot y tiempo de establecimiento.
+Se simula la respuesta temporal del buffer ante una señal escalón.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{example-image}
-    \caption{Respuesta al escalón del buffer de la figura 2 (placeholder: example-image.png).}
+    \includegraphics[width=0.8\textwidth]{Imagenes/Ej3Osc.png}
+    \caption{Respuesta al escalón del buffer de la figura 2.}
     \label{fig:sim3}
 \end{figure}
 
-\vspace{2em}
+Se observa que el sistema oscila cuando la entrada no es 0. 
 
-\noindent\textbf{Parámetros temporales extraídos:}
-\vspace{3em}
+\subsubsection{Calculos Te\'oricos}
 
+A partir del punto de operación obtenido en LTspice, el amplificador puede reducirse a un modelo equivalente de dos etapas de transconductancia. La primera etapa corresponde al par diferencial NMOS \(M_3-M_4\) con carga activa PMOS \(M_1-M_2\), mientras que la segunda etapa corresponde a una etapa common-source PMOS \(M_6\) con carga NMOS \(M_7\).
+
+El modelo de la ganancia de lazo abierto se aproxima como:
+
+\begin{equation}\notag
+H(s)\approx
+\frac{g_{m1}R_1}{1+sR_1C_1}
+\cdot
+\frac{g_{m2}R_2}{1+sR_2C_2}
+\end{equation}
+
+donde \(g_{m1}\), \(R_1\) y \(C_1\) representan la transconductancia, resistencia de salida y capacidad equivalente de la primera etapa, y \(g_{m2}\), \(R_2\) y \(C_2\) representan los parámetros equivalentes de la segunda etapa.
+
+\subsection*{Primera etapa: par diferencial con carga activa}
+
+El nodo de salida de la primera etapa se denomina \(V_A\). En el circuito, este nodo corresponde al drenador común de \(M_1\) y \(M_4\), y además es el nodo que controla la compuerta de \(M_6\).
+
+La resistencia de salida equivalente de la primera etapa está dada por la resistencia de salida del PMOS de carga \(M_1\) en paralelo con la resistencia de salida del NMOS de entrada \(M_4\):
+
+\begin{equation}\notag
+R_1=r_{o1}\parallel r_{o4}
+\end{equation}
+
+Usando:
+
+\begin{equation}\notag
+r_o=\frac{1}{g_{ds}}
+\end{equation}
+
+se tiene:
+
+\begin{equation}\notag
+R_1=
+\frac{1}{g_{ds1}+g_{ds4}}
+\end{equation}
+
+Del punto de operación de LTspice:
+
+\begin{equation}\notag
+g_{ds1}=7.08\times 10^{-8}\ \mathrm{S}
+\end{equation}
+
+\begin{equation}\notag
+g_{ds4}=5.36\times 10^{-8}\ \mathrm{S}
+\end{equation}
+
+Entonces:
+
+\begin{equation}\notag
+r_{o1}=
+\frac{1}{7.08\times 10^{-8}}
+=
+1.41\times 10^{7}\ \Omega
+\end{equation}
+
+\begin{equation}\notag
+r_{o4}=
+\frac{1}{5.36\times 10^{-8}}
+=
+1.87\times 10^{7}\ \Omega
+\end{equation}
+
+Por lo tanto:
+
+\begin{equation}\notag
+R_1=
+\frac{1}{7.08\times 10^{-8}+5.36\times 10^{-8}}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+R_1\approx 8.04\times 10^{6}\ \Omega
+}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+R_1\approx 8.04\ \mathrm{M\Omega}
+}
+\end{equation}
+
+Para la transconductancia equivalente de la primera etapa, se toma la transconductancia del transistor de entrada. Como el par diferencial está balanceado:
+
+\begin{equation}\notag
+g_{m3}=g_{m4}=1.00\times 10^{-4}\ \mathrm{S}
+\end{equation}
+
+Por lo tanto, para una excitación diferencial y una conversión single-ended mediante la carga activa, se aproxima:
+
+\begin{equation}\notag
+\boxed{
+g_{m1}\approx g_{m3}\approx g_{m4}
+}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+g_{m1}=1.00\times 10^{-4}\ \mathrm{S}
+}
+\end{equation}
+
+La capacidad equivalente asociada al nodo \(V_A\) se aproxima sumando la capacidad externa \(C_1\) y las principales capacidades parasíticas vistas desde ese nodo. En este caso:
+
+\begin{equation}\notag
+C_1^{eq}
+\approx
+C_1
++
+C_{gd,M1}
++
+C_{gd,M6}
+\end{equation}
+
+donde \(C_{gd,M6}\) es, estrictamente, una capacidad entre \(V_A\) y \(V_O\). En un modelo simplificado de dos polos se la puede incorporar como una capacidad equivalente lumped en el nodo \(V_A\), aunque en un análisis más preciso debe tratarse como una capacidad de acople tipo Miller.
+
+Del punto de operación:
+
+\begin{equation}\notag
+C_1=0.5\ \mathrm{pF}
+\end{equation}
+
+\begin{equation}\notag
+C_{gd,M1}=82.9\ \mathrm{fF}
+\end{equation}
+
+\begin{equation}\notag
+C_{gd,M6}=82.9\ \mathrm{fF}
+\end{equation}
+
+Entonces:
+
+\begin{equation}\notag
+C_1^{eq}
+\approx
+0.5\ \mathrm{pF}
++
+82.9\ \mathrm{fF}
++
+82.9\ \mathrm{fF}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+C_1^{eq}\approx 0.666\ \mathrm{pF}
+}
+\end{equation}
+
+La primera etapa queda entonces modelada como:
+
+\begin{equation}\notag
+A_1(s)=
+\frac{g_{m1}R_1}{1+sR_1C_1}
+\end{equation}
+
+con:
+
+\begin{equation}\notag
+\boxed{
+g_{m1}=1.00\times 10^{-4}\ \mathrm{S}
+}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+R_1=8.04\times 10^{6}\ \Omega
+}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+C_1=0.666\ \mathrm{pF}
+}
+\end{equation}
+
+La ganancia de baja frecuencia de la primera etapa es:
+
+\begin{equation}\notag
+A_{v1}=g_{m1}R_1
+\end{equation}
+
+\begin{equation}\notag
+A_{v1}
+=
+(1.00\times 10^{-4})
+(8.04\times 10^{6})
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+A_{v1}\approx 804\ \mathrm{V/V}
+}
+\end{equation}
+
+\subsection*{Segunda etapa: common-source PMOS con carga NMOS}
+
+La segunda etapa está formada por el PMOS \(M_6\) como transistor de ganancia y el NMOS \(M_7\) como carga activa. El nodo de salida es \(V_O\).
+
+La resistencia de salida equivalente de esta etapa está dada por:
+
+\begin{equation}\notag
+R_2=r_{o6}\parallel r_{o7}
+\end{equation}
+
+Usando:
+
+\begin{equation}\notag
+r_o=\frac{1}{g_{ds}}
+\end{equation}
+
+se obtiene:
+
+\begin{equation}\notag
+R_2=
+\frac{1}{g_{ds6}+g_{ds7}}
+\end{equation}
+
+Del punto de operación:
+
+\begin{equation}\notag
+g_{ds6}=6.95\times 10^{-8}\ \mathrm{S}
+\end{equation}
+
+\begin{equation}\notag
+g_{ds7}=7.56\times 10^{-8}\ \mathrm{S}
+\end{equation}
+
+Entonces:
+
+\begin{equation}\notag
+r_{o6}=
+\frac{1}{6.95\times 10^{-8}}
+=
+1.44\times 10^{7}\ \Omega
+\end{equation}
+
+\begin{equation}\notag
+r_{o7}=
+\frac{1}{7.56\times 10^{-8}}
+=
+1.32\times 10^{7}\ \Omega
+\end{equation}
+
+Por lo tanto:
+
+\begin{equation}\notag
+R_2=
+\frac{1}{6.95\times 10^{-8}+7.56\times 10^{-8}}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+R_2\approx 6.89\times 10^{6}\ \Omega
+}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+R_2\approx 6.89\ \mathrm{M\Omega}
+}
+\end{equation}
+
+La transconductancia equivalente de la segunda etapa se toma como la transconductancia de \(M_6\):
+
+\begin{equation}\notag
+g_{m2}\approx g_{m6}
+\end{equation}
+
+Del punto de operación:
+
+\begin{equation}\notag
+g_{m6}=4.29\times 10^{-5}\ \mathrm{S}
+\end{equation}
+
+Entonces:
+
+\begin{equation}\notag
+\boxed{
+g_{m2}=4.29\times 10^{-5}\ \mathrm{S}
+}
+\end{equation}
+
+La capacidad equivalente asociada al nodo \(V_O\) se aproxima sumando la capacidad externa \(C_2\) y las principales capacidades parasíticas vistas desde la salida. La contribución dominante adicional es \(C_{gd,M6}\):
+
+\begin{equation}\notag
+C_2^{eq}
+\approx
+C_2
++
+C_{gd,M6}
+\end{equation}
+
+Del punto de operación:
+
+\begin{equation}\notag
+C_2=0.5\ \mathrm{pF}
+\end{equation}
+
+\begin{equation}\notag
+C_{gd,M6}=82.9\ \mathrm{fF}
+\end{equation}
+
+Entonces:
+
+\begin{equation}\notag
+C_2^{eq}
+\approx
+0.5\ \mathrm{pF}
++
+82.9\ \mathrm{fF}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+C_2^{eq}\approx 0.583\ \mathrm{pF}
+}
+\end{equation}
+
+La segunda etapa queda entonces modelada como:
+
+\begin{equation}\notag
+A_2(s)=
+\frac{g_{m2}R_2}{1+sR_2C_2}
+\end{equation}
+
+con:
+
+\begin{equation}\notag
+\boxed{
+g_{m2}=4.29\times 10^{-5}\ \mathrm{S}
+}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+R_2=6.89\times 10^{6}\ \Omega
+}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+C_2=0.583\ \mathrm{pF}
+}
+\end{equation}
+
+La ganancia de baja frecuencia de la segunda etapa es:
+
+\begin{equation}\notag
+A_{v2}=g_{m2}R_2
+\end{equation}
+
+\begin{equation}\notag
+A_{v2}
+=
+(4.29\times 10^{-5})
+(6.89\times 10^{6})
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+A_{v2}\approx 296\ \mathrm{V/V}
+}
+\end{equation}
+
+\subsection*{Modelo equivalente total}
+
+El modelo equivalente queda:
+
+\begin{equation}\notag
+H(s)\approx
+\frac{g_{m1}R_1}{1+sR_1C_1}
+\cdot
+\frac{g_{m2}R_2}{1+sR_2C_2}
+\end{equation}
+
+Reemplazando los valores obtenidos:
+
+\begin{equation}\notag
+H(s)\approx
+\frac{(1.00\times 10^{-4})(8.04\times 10^{6})}
+{1+s(8.04\times 10^{6})(0.666\times 10^{-12})}
+\cdot
+\frac{(4.29\times 10^{-5})(6.89\times 10^{6})}
+{1+s(6.89\times 10^{6})(0.583\times 10^{-12})}
+\end{equation}
+
+Simplificando:
+
+\begin{equation}\notag
+\boxed{
+H(s)\approx
+\frac{804}{1+s(5.35\times 10^{-6})}
+\cdot
+\frac{296}{1+s(4.02\times 10^{-6})}
+}
+\end{equation}
+
+La ganancia total de baja frecuencia es:
+
+\begin{equation}\notag
+A_0=A_{v1}A_{v2}
+\end{equation}
+
+\begin{equation}\notag
+A_0
+\approx
+(804)(296)
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+A_0\approx 2.38\times 10^{5}\ \mathrm{V/V}
+}
+\end{equation}
+
+En decibeles:
+
+\begin{equation}\notag
+A_{0,dB}=20\log_{10}(A_0)
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+A_{0,dB}\approx 107.5\ \mathrm{dB}
+}
+\end{equation}
+
+\subsection*{Frecuencias de polo}
+
+El primer polo está determinado por \(R_1\) y \(C_1\):
+
+\begin{equation}\notag
+\omega_{p1}=\frac{1}{R_1C_1}
+\end{equation}
+
+\begin{equation}\notag
+\omega_{p1}
+=
+\frac{1}{(8.04\times 10^{6})(0.666\times 10^{-12})}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+\omega_{p1}\approx 1.87\times 10^{5}\ \mathrm{rad/s}
+}
+\end{equation}
+
+La frecuencia en hertz es:
+
+\begin{equation}\notag
+f_{p1}=
+\frac{\omega_{p1}}{2\pi}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+f_{p1}\approx 29.7\ \mathrm{kHz}
+}
+\end{equation}
+
+El segundo polo está determinado por \(R_2\) y \(C_2\):
+
+\begin{equation}\notag
+\omega_{p2}=\frac{1}{R_2C_2}
+\end{equation}
+
+\begin{equation}\notag
+\omega_{p2}
+=
+\frac{1}{(6.89\times 10^{6})(0.583\times 10^{-12})}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+\omega_{p2}\approx 2.49\times 10^{5}\ \mathrm{rad/s}
+}
+\end{equation}
+
+La frecuencia en hertz es:
+
+\begin{equation}\notag
+f_{p2}=
+\frac{\omega_{p2}}{2\pi}
+\end{equation}
+
+\begin{equation}\notag
+\boxed{
+f_{p2}\approx 39.6\ \mathrm{kHz}
+}
+\end{equation}
+
+\subsection*{Verificación del punto de operación}
+
+A diferencia del caso anterior, el punto de operación ahora resulta físicamente consistente para un amplificador de dos etapas. El par diferencial conduce corriente de forma balanceada:
+
+\begin{equation}\notag
+I_D(M_3)=10\ \mu\mathrm{A}
+\end{equation}
+
+\begin{equation}\notag
+I_D(M_4)=10\ \mu\mathrm{A}
+\end{equation}
+
+La corriente de cola es:
+
+\begin{equation}\notag
+I_D(M_5)=20\ \mu\mathrm{A}
+\end{equation}
+
+La segunda etapa también se encuentra polarizada:
+
+\begin{equation}\notag
+I_D(M_6)=10\ \mu\mathrm{A}
+\end{equation}
+
+\begin{equation}\notag
+I_D(M_7)=10\ \mu\mathrm{A}
+\end{equation}
+
+Además, los transistores principales se encuentran en saturación, ya que sus tensiones \(V_{DS}\) son mayores que sus respectivas tensiones de saturación \(V_{DSAT}\). Por ejemplo:
+
+\begin{equation}\notag
+V_{DS4}=2.15\ \mathrm{V}
+>
+V_{DSAT4}=0.168\ \mathrm{V}
+\end{equation}
+
+\begin{equation}\notag
+V_{DS7}=2.50\ \mathrm{V}
+>
+V_{DSAT7}=0.264\ \mathrm{V}
+\end{equation}
+
+\begin{equation}\notag
+V_{SD6}=2.50\ \mathrm{V}
+>
+V_{SDAT6}=0.376\ \mathrm{V}
+\end{equation}
+
+Por lo tanto, este punto de operación sí permite construir un modelo equivalente de pequeña señal válido para estimar la ganancia de lazo abierto, los polos dominantes y el comportamiento dinámico del amplificador.
+
+Lo cual se aproxima a la simulaci\'on se la ganancia de lazo del circuito sin capacitor de miller.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Imagenes/3GananciaLazoAbiertoSCm.png}
+    \caption{Ganancia De Lazo Sin $C_m$}
+    \label{fig:example_image}
+    
+\end{figure}
 \subsubsection{Diseño para PM = $60^\circ$}
-Se describe el procedimiento para obtener experimentalmente el valor de CM y del nulling resistor que permiten alcanzar un margen de fase de $60^\circ$.
 
-\vspace{3em}
+Se utiliza un nulling resistor de $23.31k\Omega$ por el $g_m$ de $M_6$ y a partir de la simulaci\'on se encontr\'o el PM = $60^\circ$ con un capacitor de miller de $C_m = 5,5pF$.
 
-\noindent\textbf{Valores ajustados:}
-\vspace{3em}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Imagenes/TCmEj3.png}
+    \caption{Ganancia de Lazo Con $C_m$ y PM = $60^\circ$}
+    \label{fig.:TCm3}
+\end{figure}
 
-\subsubsection{Contraste teórico-experimental}
-Se comparan las posiciones de los polos calculadas teóricamente con las obtenidas en la simulación real del circuito.
+Se puede observar ahora que la salida sigue perfectamente al escal\'on con muy poco slew rate, siendo la entrada un escal\'on de 1V montado sobre una continua de 2,5V.
 
-\vspace{2em}
-
-\noindent\textbf{Polos teóricos:}
-\vspace{3em}
-
-\noindent\textbf{Polos simulados:}
-\vspace{3em}
-
-\subsection{Alternativa de polarización de la figura 3}
-Se incluye una breve referencia a la alternativa de obtención de la ganancia $\text{AOL}\beta$ manteniendo la polarización de DC, según lo indicado en la figura 3.
-
-\vspace{3em}
-
-\noindent\textbf{Observaciones sobre la alternativa de polarización:}
-\vspace{3em}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Imagenes/VoE3.png}
+    \caption{Señal de Vo en el tiempo con el $C_m$ y la $R_{nulling}$}
+    \label{fig.:VoE3}
+\end{figure}
